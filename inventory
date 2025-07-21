@@ -1,0 +1,5 @@
+[dev]
+192.168.56.30 ansible_user=vagrant ansible_private_key_file=./ansible-keys
+
+[prod]
+192.168.56.30 ansible_user=vagrant ansible_private_key_file=./ansible-keys

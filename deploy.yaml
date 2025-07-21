@@ -1,0 +1,44 @@
+---
+- name: Deploy e-learning Django App via Docker
+  hosts: "{{ env }}"
+  become: yes
+  vars:
+    image_tag: "{{ image_tag | default('thapavishal/elearning:latest') }}"
+    container_name: "{{ 'elearningdev' if env == 'dev' else 'elearningprod' }}"
+    host_port: "{{ '8000' if env == 'dev' else '8001' }}"
+    container_port: 8000
+
+  tasks:
+    - name: Install Docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure Docker is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Stop & remove existing container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        state: absent
+
+    - name: Pull latest image from DockerHub
+      community.docker.docker_image:
+        name: "{{ image_tag }}"
+        source: pull
+        state: present
+
+    - name: Run Django Docker Container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_tag }}"
+        state: started
+        restart_policy: unless-stopped
+        published_ports:
+          - "{{ host_port }}:{{ container_port }}"
