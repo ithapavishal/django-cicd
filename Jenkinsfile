@@ -40,7 +40,7 @@ pipeline {
 
         stage('Deploy to Development') {
             steps {
-                sshagent(credentials: ['jenkins-ssh-key']) {
+                sshagent(credentials: ['vagrant-ssh-key']) {
                     sh '''
                     ansible-playbook -i inventory deploy.yaml \
                       --extra-vars "env=dev image_tag=$dockerImage:$BUILD_NUMBER"
@@ -54,7 +54,7 @@ pipeline {
                 timeout(time: 1, unit: 'DAYS') {
                     input message: 'Approve production deployment?'
                 }
-                sshagent(credentials: ['jenkins-ssh-key']) {
+                sshagent(credentials: ['vagrant-ssh-key']) {
                     sh '''
                     ansible-playbook -i inventory deploy.yaml \
                       --extra-vars "env=prod image_tag=$dockerImage:$BUILD_NUMBER"
