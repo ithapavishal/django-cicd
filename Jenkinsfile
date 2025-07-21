@@ -3,28 +3,34 @@ pipeline {
 
     environment {
         dockerImage = "thapavishal/elearning"
+        ANSIBLE_CONFIG = "${WORKSPACE}/ansible.cfg"
     }
 
     stages {
         stage('Checkout from GitHub') {
             steps {
-                git url: 'https://github.com/ithapavishal/django-cicd.git', branch: 'django-pipeline'
+                checkout scm
             }
         }
 
-        stage('Build Django App Image') {
-            // agent {
-            //     label 'ubuntu-pipeline-slave-node'
-            // }
+        stage('Setup Environment') {
+            steps {
+                sh '''
+                echo "[defaults]" > ansible.cfg
+                echo "host_key_checking = False" >> ansible.cfg
+                echo "remote_user = vagrant" >> ansible.cfg
+                echo "private_key_file = /var/lib/jenkins/.ssh/id_rsa" >> ansible.cfg
+                '''
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $dockerImage:$BUILD_NUMBER .'
             }
         }
 
-        stage('Push Image to DockerHub') {
-            // agent {
-            //     label 'ubuntu-pipeline-slave-node'
-            // }
+        stage('Push to DockerHub') {
             steps {
                 withDockerRegistry([credentialsId: 'dockerhub-credentials', url: '']) {
                     sh 'docker push $dockerImage:$BUILD_NUMBER'
@@ -33,29 +39,27 @@ pipeline {
         }
 
         stage('Deploy to Development') {
-            // agent {
-            //     label 'ubuntu-pipeline-slave-node'
-            // }
             steps {
-                echo 'Deploying to development via Ansible'
-                sh '''
-                ansible-playbook -i inventory deploy.yaml --extra-vars "env=dev image_tag=$dockerImage:$BUILD_NUMBER"
-                '''
+                sshagent(credentials: ['jenkins-ssh-key']) {
+                    sh '''
+                    ansible-playbook -i inventory deploy.yaml \
+                      --extra-vars "env=dev image_tag=$dockerImage:$BUILD_NUMBER"
+                    '''
+                }
             }
         }
 
         stage('Deploy to Production') {
-            // agent {
-            //     label 'ubuntu-pipeline-slave-node'
-            // }
             steps {
                 timeout(time: 1, unit: 'DAYS') {
-                    input id: 'confirm', message: 'Approve deployment to production environment?'
+                    input message: 'Approve production deployment?'
                 }
-                echo 'Deploying to production via Ansible'
-                sh '''
-                ansible-playbook -i inventory deploy.yaml --extra-vars "env=prod image_tag=$dockerImage:$BUILD_NUMBER"
-                '''
+                sshagent(credentials: ['jenkins-ssh-key']) {
+                    sh '''
+                    ansible-playbook -i inventory deploy.yaml \
+                      --extra-vars "env=prod image_tag=$dockerImage:$BUILD_NUMBER"
+                    '''
+                }
             }
         }
     }
