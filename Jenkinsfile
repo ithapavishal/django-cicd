@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout from GitHub') {
             steps {
-                git url: 'https://github.com/ithapavishal/django-cicd.git', branch: 'jenkins-pipeline'
+                git url: 'https://github.com/ithapavishal/django-cicd.git', branch: 'django-pipeline'
             }
         }
 
