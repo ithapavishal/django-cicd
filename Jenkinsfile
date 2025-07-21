@@ -13,18 +13,18 @@ pipeline {
         }
 
         stage('Build Django App Image') {
-            agent {
-                label 'ubuntu-pipeline-slave-node'
-            }
+            // agent {
+            //     label 'ubuntu-pipeline-slave-node'
+            // }
             steps {
                 sh 'docker build -t $dockerImage:$BUILD_NUMBER .'
             }
         }
 
         stage('Push Image to DockerHub') {
-            agent {
-                label 'ubuntu-pipeline-slave-node'
-            }
+            // agent {
+            //     label 'ubuntu-pipeline-slave-node'
+            // }
             steps {
                 withDockerRegistry([credentialsId: 'dockerhub-credentials', url: '']) {
                     sh 'docker push $dockerImage:$BUILD_NUMBER'
@@ -33,9 +33,9 @@ pipeline {
         }
 
         stage('Deploy to Development') {
-            agent {
-                label 'ubuntu-pipeline-slave-node'
-            }
+            // agent {
+            //     label 'ubuntu-pipeline-slave-node'
+            // }
             steps {
                 echo 'Deploying to development via Ansible'
                 sh '''
@@ -45,9 +45,9 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            agent {
-                label 'ubuntu-pipeline-slave-node'
-            }
+            // agent {
+            //     label 'ubuntu-pipeline-slave-node'
+            // }
             steps {
                 timeout(time: 1, unit: 'DAYS') {
                     input id: 'confirm', message: 'Approve deployment to production environment?'
