@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Course List</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">Available Courses</h1>
+    <div class="row">
+        {% comment %} {% for course in courses %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    {% if course.course_image %}
+                        <a href="{% url 'course_detail' course.id %}">
+                            <img class="card-img-top" src="{{ course.course_image.url }}" alt="{{ course.title }}" style="height: 200px; object-fit: cover;">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'course_detail' course.id %}">
+                            <img class="card-img-top" src="{% static 'images/iron-man.png' %}" alt="{{ course.title }}" style="height: 200px; object-fit: cover;">
+                        </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'course_detail' course.id %}" class="text-dark">{{ course.title }}</a>
+                        </h5>
+                        <p class="card-text">Duration: {{ course.course_duration }}</p>
+                        <p class="card-text">Price: ${{ course.price }}</p>
+                    </div>
+                    {% comment %} <div class="card-footer text-center"> {% endcomment %}
+                    {% comment %} 
+                    <div class=" text-center">
+
+                        <form method="post" action="{% url 'cart:add_to_cart' course.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-success custom-cart-button">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %} {% endcomment %}
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Course List</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">Available Courses</h1>
+    <div class="row">
+        {% for course in courses %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    {% if course.course_image %}
+                        <a href="{% url 'course_detail' course.id %}">
+                            <img class="card-img-top" src="{{ course.course_image.url }}" alt="{{ course.title }}" style="max-height: 180px; object-fit: cover;">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'course_detail' course.id %}">
+                            <img class="card-img-top" src="{% static 'images/iron-man.png' %}" alt="{{ course.title }}">
+                        </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'course_detail' course.id %}" class="text-dark">{{ course.title }}</a>
+                        </h5>
+                        <p class="card-text">Duration: {{ course.course_duration }}</p>
+                        <p class="card-text">Price: ${{ course.price }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <form method="post" action="{% url 'cart:add_to_cart' course.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-block">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Course List</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">Available Courses</h1>
+    <div class="row">
+        {% for course in courses %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    {% if course.course_image %}
+                        <img class="card-img-top" src="{{ course.course_image.url }}" alt="{{ course.title }}" style="max-height: 180px; object-fit: cover;">
+                    {% else %}
+                        <img class="card-img-top" src="{% static 'images/iron-man.png' %}" alt="{{ course.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course.title }}</h5>
+                        <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'course_detail' course.id %}" class="btn btn-primary btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %} {% endcomment %}

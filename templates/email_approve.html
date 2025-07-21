@@ -1,0 +1,12 @@
+{% autoescape off %}
+Hello {{ user.first_name }},
+
+Thank you for registering as an {{ role }}. Your account is currently pending approval.
+
+Please click the link below to approve or reject the registration:
+
+<a href="{{ approval_link }}">Approve/Reject Registration</a>
+
+Best regards,
+E-Learning Team
+{% endautoescape %}

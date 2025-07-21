@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Profile</h2>
+    
+    <!-- Profile Picture -->
+    <div class="row">
+        <div class="col-md-4">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="{{ user.username }}" class="img-thumbnail mb-3">
+            {% else %}
+                <img src="{% static 'default_profile_picture.png' %}" alt="{{ user.username }}" class="img-thumbnail mb-3">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <!-- Display Profile Information -->
+            <div id="profile-info">
+                <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+                <p><strong>City:</strong> {{ profile.city }}</p>
+                <p><strong>Country:</strong> {{ profile.country }}</p>
+                <p><strong>Role:</strong> {{ profile.get_role_display }}</p>
+                {% if profile.is_approved %}
+                    <p class="text-success">Your account is approved.</p>
+                {% else %}
+                    <p class="text-warning">Your account is pending approval.</p>
+                {% endif %}
+                <button id="edit-profile-button" class="btn btn-primary mt-3">Update Profile</button>
+            </div>
+
+            <!-- Profile Form (Hidden by Default) -->
+            <div id="profile-form" style="display: none;">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ profile_form.as_p }}
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <button type="button" id="cancel-edit-button" class="btn btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript to toggle between profile info and update form
+document.getElementById("edit-profile-button").onclick = function() {
+    document.getElementById("profile-info").style.display = "none";
+    document.getElementById("profile-form").style.display = "block";
+};
+
+document.getElementById("cancel-edit-button").onclick = function() {
+    document.getElementById("profile-form").style.display = "none";
+    document.getElementById("profile-info").style.display = "block";
+};
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Profile</h2>
+    
+    <!-- Profile Picture -->
+    <div class="row">
+        <div class="col-md-4">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="{{ user.username }}" class="img-thumbnail mb-3">
+            {% else %}
+                <img src="{% static 'images/iron-man.png' %}" alt="{{ user.username }}" class="img-thumbnail mb-3">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <!-- Profile Form -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_form.as_p }}
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Display Role -->
+    <div class="mt-4">
+        <h4>Role: {{ profile.get_role_display }}</h4>
+        {% if profile.is_approved %}
+            <p class="text-success">Your account is approved.</p>
+        {% else %}
+            <p class="text-warning">Your account is pending approval.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends "base.html" %}
+{% load static  %}
+
+{% block content %}
+<h2>Profile</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ profile_form.as_p }}
+    <button type="submit">Update Profile</button>
+</form>
+
+
+{% endblock %} {% endcomment %}

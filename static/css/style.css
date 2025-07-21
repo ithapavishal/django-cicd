@@ -1,0 +1,257 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navbar styles */
+.new_navbar {
+    /* background-color: #9acd32; */
+    background-color: #6d9ef3;
+    padding: 3px 0;
+}
+
+.new_navbar .navbar-brand {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.new_navbar .nav-link {
+    color: white;
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+.new_navbar .nav-link:hover, .new_navbar .nav-link.active {
+    color: #ffd700;
+}
+
+.new_navbar .navbar-toggler {
+    border: none;
+}
+
+.new_navbar .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.7%29" stroke-width="2" linecap="round" linejoin="round" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+table th {
+    background-color: #6d9ef3;
+    color: white;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add {
+    background-color: #28a745;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Messages */
+.messages {
+    margin: 20px 0;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: white;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+}
+
+.alert-warning {
+    background-color: #ffc107;
+}
+
+.alert-info {
+    background-color: #17a2b8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .nav-item {
+        margin-bottom: 10px;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+    }
+}
+
+
+
+/* social login */
+
+.social-login {
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 20px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+}
+
+.social-icon.google { background-color: #db4437; }
+.social-icon.twitter { background-color: #1da1f2; }
+.social-icon.facebook { background-color: #3b5998; }
+
+.social-icon:hover {
+    opacity: 0.8;
+}
+
+
+/* for first name and profile pic on the top right corner of the navigation */
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;  /* Aligns to the right */
+    height: 100%;  /* Ensures it stays within the navbar height */
+    padding-right: 15px;  /* Add some padding to the right if needed */
+}
+
+.user-info .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;  /* Ensures the image fits inside the circle */
+    margin-right: 10px;
+}
+
+.user-info span {
+    font-size: 14px;
+    color: white;  /* Matches the text color to the rest of the navbar */
+    font-weight: 500;
+}
+
+
+
+
+ /* Bootstrap Cards */
+
+ .card-img-top {
+    width: 100%;
+    height: 180px; /* Fixed height */
+    object-fit: cover; /* Ensures image covers the area */
+}
+
+/* .custom-cart-button {
+    position: relative;
+    padding: 10px 20px;
+    border: 2px solid #28a745; 
+    color: #28a745; 
+    background-color: transparent;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.custom-cart-button:hover {
+    background-color: #28a745; 
+    color: white; 
+} */
+
+.custom-cart-button {
+    position: relative;
+    padding: 10px 20px;
+    border: 2px solid #28a745; /* Border color */
+    color: #28a745; /* Text color */
+    background-color: transparent;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold; /* Optional: make text bold */
+}
+
+.custom-cart-button:hover {
+    background-color: #28a745; /* Button fill color on hover */
+    color: white; /* Text color on hover */
+}
+
+.custom-cart-button i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+
+.custom-cart-button i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+ /* Bootstrap Cards */
+

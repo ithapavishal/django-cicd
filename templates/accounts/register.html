@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Register</h2>
+
+            <form method="POST" action="{% url 'register' %}" class="mx-auto">
+              {% csrf_token %}
+                <div class="col-md-6">
+                    <label>First Name</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Last Name</label>
+                    <input type="text" id="last_name" name="last_name"  class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Username</label>
+                    <input type="text" id="username" name="username"  class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="email" id="email" name="email"  class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Password</label>
+                    <input type="password" id="password" name="password"  class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Confirm Password</label>
+                    <input type="password" id="password1" name="password1"  class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required class="form-control">
+                        <option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                        <option value="instructor">Instructor</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Register</button>
+                <div class="register">
+                  <p>Already Registered? <a style="color: #007BFF;" href="{% url 'login' %}">Sign In</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% for message in messages %}
+    <!-- Alertify component notified position -->
+        <script>
+        alertify.set('notifier','position', 'top-right');
+        alertify.success('{{ message }}');
+        </script>
+    {% endfor %}
+
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> {% endcomment %}
+
+
+{% endblock %}

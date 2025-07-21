@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Admin Dashboard - Pending Approvals</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for profile in pending_profiles %}
+      <tr>
+        <td>{{ profile.user.username }}</td>
+        <td>{{ profile.role }}</td>
+        <td>
+          <form method="post" action="{% url 'profile_action' profile.user.id 'approve' %}">
+            {% csrf_token %}
+            <button type="submit">Approve</button>
+          </form>
+          <form method="post" action="{% url 'profile_action' profile.user.id 'reject' %}">
+            {% csrf_token %}
+            <button type="submit">Reject</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+  <h2>Admin Dashboard - Pending Approvals</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for profile in pending_profiles %}
+      <tr>
+        <td>{{ profile.user.username }}</td>
+        <td>{{ profile.role }}</td>
+        <td>
+          <a href="{% url 'approve_registration' profile.user.id %}">Approve</a>
+          <a href="{% url 'reject_registration' profile.user.id %}">Reject</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %} {% endcomment %}

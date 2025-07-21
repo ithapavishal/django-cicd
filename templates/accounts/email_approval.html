@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+
+    <title>Profile Approval Required</title>
+</head>
+<body>
+    <h1>New <strong>{{ role }}</strong> Registration</h1>
+    <p>Dear Admin,</p>
+    <p>A new <strong>{{ role }}</strong> registration has been submitted and is pending your approval.</p>
+    <p>Details:</p>
+    <ul>
+        <li><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Date:</strong> {{ date }}</li>
+    </ul>
+    <p>To approve or reject this profile, please click the following link:</p>
+    <p>
+        {% comment %} <a href="{% url 'profile_action' user.id 'approve' %}">Approve</a> |
+        <a href="{% url 'profile_action' user.id 'reject' %}">Reject</a> {% endcomment %}
+        {% comment %} <a href="{{ profile_url }}">Approve</a> |
+        <a href="{{ reject_url }}">Reject</a> {% endcomment %}
+        <p>You can access the admin dashboard here: <a href="{{ admin_dashboard_url }}">Admin Dashboard</a></p>
+
+    </p>
+    <p>Thank you,</p>
+    <p>Your Learning Management System</p>
+</body>
+</html>
